@@ -12,7 +12,7 @@ import CoreMedia
 import Vision
 import VideoToolbox
 
-enum Styles : String, CaseIterable{
+enum Styles : String, CaseIterable {
     case style1
     case style2
     case style3
@@ -22,8 +22,7 @@ enum Styles : String, CaseIterable{
     case style7
 }
 
-class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate
-{
+class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     let parentStack = UIStackView()
     let imageView = UIImageView()
     let modelConfigControl = UISegmentedControl(items: ["Off", "On"])
@@ -38,15 +37,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     var currentModelConfig = 0
     var currentStyle = Styles.style1
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
         configureSession()
     }
 
-    func setupUI(){
+    func setupUI() {
         view.addSubview(parentStack)
         parentStack.axis = NSLayoutConstraint.Axis.vertical
         parentStack.distribution = UIStackView.Distribution.fill
@@ -60,8 +58,12 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         modelConfigControl.selectedSegmentIndex = 0
         styleTransferControl.selectedSegmentIndex = 0
 
-        modelConfigControl.addTarget(self, action: #selector(modelConfigChanged(_:)), for: .valueChanged)
-        styleTransferControl.addTarget(self, action: #selector(styleTransferChanged(_:)), for: .valueChanged)
+        modelConfigControl.addTarget(self,
+                                     action: #selector(modelConfigChanged(_:)),
+                                     for: .valueChanged)
+        styleTransferControl.addTarget(self,
+                                       action: #selector(styleTransferChanged(_:)),
+                                       for: .valueChanged)
     }
 
     @objc func modelConfigChanged(_ sender: UISegmentedControl) {
@@ -73,7 +75,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
 
 
-    func configureSession(){
+    func configureSession() {
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSession.Preset.medium
 
@@ -130,20 +132,20 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             var style : MLModel?
 
             switch currentStyle {
-                case .style1:
-                    style = try? style1.init(configuration: config).model
-                case .style2:
-                    style = try? style2.init(configuration: config).model
-                case .style3:
-                    style = try? style3.init(configuration: config).model
-                case .style4:
-                    style = try? style4.init(configuration: config).model
-                case .style5:
-                    style = try? style5.init(configuration: config).model
-                case .style6:
-                    style = try? style6.init(configuration: config).model
-                case .style7:
-                    style = try? style7.init(configuration: config).model
+            case .style1:
+                style = try? style1.init(configuration: config).model
+            case .style2:
+                style = try? style2.init(configuration: config).model
+            case .style3:
+                style = try? style3.init(configuration: config).model
+            case .style4:
+                style = try? style4.init(configuration: config).model
+            case .style5:
+                style = try? style5.init(configuration: config).model
+            case .style6:
+                style = try? style6.init(configuration: config).model
+            case .style7:
+                style = try? style7.init(configuration: config).model
             }
 
             guard let styleModel = style else{ return }
@@ -166,7 +168,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
 
     override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
+        super.viewDidLayoutSubviews()
 
         parentStack.frame = CGRect(x: 0, y: 100,
                                    width: view.frame.width,
